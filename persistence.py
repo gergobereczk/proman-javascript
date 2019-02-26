@@ -1,3 +1,6 @@
+import database_common
+
+'''
 import csv
 
 STATUSES_FILE = './data/statuses.csv'
@@ -20,7 +23,6 @@ def _read_csv(file_name):
             formatted_data.append(dict(row))
         return formatted_data
 
-
 def _get_data(data_type, file, force):
     """
     Reads defined type of data from file or cache
@@ -32,20 +34,36 @@ def _get_data(data_type, file, force):
     if force or data_type not in _cache:
         _cache[data_type] = _read_csv(file)
     return _cache[data_type]
+    '''
 
 
-def clear_cache():
+'''def clear_cache():
     for k in list(_cache.keys()):
-        _cache.pop(k)
+        _cache.pop(k)'''
+
+@database_common.connection_handler
+def get_statuses(cursor):
+    cursor.execute("""
+                        SELECT * FROM statuses;
+                        """)
+    statues = cursor.fetchall()
+    return statues
 
 
-def get_statuses(force=False):
-    return _get_data('statuses', STATUSES_FILE, force)
+@database_common.connection_handler
+def get_boards(cursor):
+    cursor.execute("""
+                            SELECT * FROM boards;
+                            """)
+    boards = cursor.fetchall()
+    return boards
 
 
-def get_boards(force=False):
-    return _get_data('boards', BOARDS_FILE, force)
+@database_common.connection_handler
+def get_cards(cursor):
+    cursor.execute("""
+                                SELECT * FROM cards;
+                                """)
+    boards = cursor.fetchall()
+    return
 
-
-def get_cards(force=False):
-    return _get_data('cards', CARDS_FILE, force)
