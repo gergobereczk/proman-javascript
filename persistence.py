@@ -41,6 +41,7 @@ def _get_data(data_type, file, force):
     for k in list(_cache.keys()):
         _cache.pop(k)'''
 
+
 @database_common.connection_handler
 def get_statuses(cursor):
     cursor.execute("""
@@ -64,6 +65,6 @@ def get_cards(cursor):
     cursor.execute("""
                                 SELECT * FROM cards;
                                 """)
-    boards = cursor.fetchall()
-    return
+    cards = cursor.fetchall()
+    return cards
 
