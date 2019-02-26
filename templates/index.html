@@ -16,6 +16,14 @@
     </head>
     <body>
         <h1>ProMan</h1>
+        <div id="forms">
+            <form action="{{ url_for('index') }}" method="post">
+                <input id="username" type="text" name="username" placeholder="username">
+                <input id="password" type="password" name="password" placeholder="password">
+                <input id="pass_submit" type="submit" value="Log in">
+                <button id="register">Register</button>
+            </form>
+        </div>
         <div id="boards">Boards are loading...</div>
     </body>
 </html>
