@@ -21,5 +21,33 @@
             <button id="register">Register</button>
         </div>
         <div id="boards">Boards are loading...</div>
+    <div id="registermodal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Register</h2>
+        <form id="register-form" method="post">
+            Username:<br>
+            <input type="text" id="regusername"><br>
+            Password:<br>
+            <input type="password" id="regpassword"><br>
+            <p><input type="submit" value="Register"></p>
+        </form>
+      </div>
+    </div>
+    <div id="loginmodal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Log in</h2>
+        <form id="login-form" method="post">
+            Username:<br>
+            <input type="text" id="loginusername"><br>
+            Password:<br>
+            <input type="password" id="loginpassword"><br>
+            <p><input type="submit" value="Log in"></p>
+        </form>
+      </div>
+    </div>
     </body>
 </html>
