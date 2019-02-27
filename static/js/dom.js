@@ -54,6 +54,8 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+
+
 };
 
 
@@ -63,6 +65,8 @@ export let dom = {
     let loginButton = document.getElementById("login");
     let logSpan = document.getElementsByClassName("logclose")[0];
     let regSpan = document.getElementsByClassName("regclose")[0];
+    let loginSubmit = document.getElementById("loginbutton");
+    let registerSubmit = document.getElementById("registerbutton");
 
     registerButton.onclick = function() {
         registerModal.style.display = "block";
@@ -86,3 +90,19 @@ export let dom = {
           loginModal.style.display = "none";
       }
     };
+
+    loginSubmit.onclick = function() {
+        loginModal.style.display = "none";
+    };
+
+    registerSubmit.onclick = function() {
+        registerModal.style.display = "none";
+    };
+
+
+    let usernameText = document.getElementById('loginusername');
+    let passwordText = document.getElementById('loginpassword');
+    loginSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/login/${usernameText.innerText}/${passwordText.innerText}`)
+        console.log(usernameText.innerText)
+    });

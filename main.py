@@ -32,6 +32,12 @@ def get_cards_for_board(board_id: int):
     """
     return data_handler.get_cards_for_board(board_id)
 
+@app.route("/login/<username>/<password>")
+def login(username, password):
+    print('username=', username, 'password=', password)
+    return "nothing"
+
+
 
 def main():
     app.run(debug=True)
