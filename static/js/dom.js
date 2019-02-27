@@ -54,4 +54,94 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+    createTestBoards: function () {
+        return `<div class="board-container">
+        <section class="board">
+            <div class="board-header"><span class="board-title">Board 1</span>
+                <button class="board-add">Add Card</button>
+                <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+            </div>
+            <div class="board-columns">
+                <div class="board-column">
+                    <div class="board-column-title">New</div>
+                    <div class="board-column-content">
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 1</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-title">In Progress</div>
+                    <div class="board-column-content">
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-title">Testing</div>
+                    <div class="board-column-content">
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 1</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 2</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 3</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 4</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-title">Done</div>
+                    <div class="board-column-content">
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 1</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 2</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 3</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 4</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 5</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">Card 6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>`;
+    },
+    loadTestBoards: function () {
+        document.querySelector('#boards').innerHTML = this.createTestBoards();
+    }
 };
