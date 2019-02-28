@@ -29,7 +29,7 @@ export let dom = {
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
-        let idsForDragula = []
+
         let boardList = '';
 
 
@@ -47,18 +47,19 @@ export let dom = {
              let statusesFromServer = board.statuses;
 
              for (var i in statusesFromServer){
-                 idsForDragula.push(statusesFromServer[i]['title']);
+
                 boardList+=`
-                    <div class="dropzone" id="${statusesFromServer[i]['title']}">
-                     <div class="board-column" id="board" class="dropzone">
+                    
+                     <div class="board-column">
                     <div class="board-column-title">${statusesFromServer[i]['title']}</div>
-                    <div class="board-column-content">`;
+                    <div class="board-column-content">
+<div class="dropzone">`;
 
                  let cardsFromServer = board.statuses[i]['cards'];
 
                     for (var i in cardsFromServer){
                     boardList+=`
-                        <div class="card">
+                        <div class="card" id="cards" draggable="true")>
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title">${cardsFromServer[i]['title']}</div>
                    </div>
@@ -82,8 +83,7 @@ export let dom = {
                 ${boardList}
             </ul>
         `;
-       for (var i in idsForDragula){ console.log(idsForDragula[i])};
-       dragula([document.getElementById('boards')]);
+
         this._appendToElement(document.querySelector('#boards'), outerHtml);
     },
     loadCards: function (boardId) {

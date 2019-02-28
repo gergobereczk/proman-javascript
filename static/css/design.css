@@ -127,3 +127,11 @@ section.board{
 .card-title{
     padding-right: 16px;
 }
+
+
+ .dropzone {
+    width: 200px;
+    height: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
