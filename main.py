@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for, session, redirect
 from util import json_response
 
+import json
+
 import data_handler
 import persistence
 
@@ -23,7 +25,7 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_boards()
+    return data_handler.get_nested_query()
 
 
 @app.route("/get-cards/<int:board_id>")
