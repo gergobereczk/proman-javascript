@@ -38,7 +38,6 @@ def _get_data(data_type, file, force):
     return _cache[data_type]
     '''
 
-
 '''def clear_cache():
     for k in list(_cache.keys()):
         _cache.pop(k)'''
@@ -112,6 +111,7 @@ def get_all_boards_width_all_elements(cursor):
     info = cursor.fetchall()
     return info
 
+
 # Updates the position for a card in the database
 
 
@@ -124,7 +124,6 @@ def update_card_position(cursor, card_id_, new_status):
                                     """, {'new_status': new_status, "card_id_": card_id_})
 
 
-
 @database_common.connection_handler
 def delete_card(cursor, card_id_):
     cursor.execute("""
@@ -135,6 +134,7 @@ def delete_card(cursor, card_id_):
 
 @database_common.connection_handler
 def insert_card(cursor, card_data):
+    print(card_data, "itt")
     cursor.execute("""
                INSERT INTO cards ( board_id, title, status_id, "order")
                VALUES (%(board_id)s,%(title)s,%(status_id)s,%(order)s);
@@ -179,5 +179,3 @@ def add_user(cursor, username, password):
     user = cursor.fetchone()
 
     return user
-
-

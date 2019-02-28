@@ -35,7 +35,7 @@ def get_nested_query():     # Gets all the boards with the statuses and the card
                     if card["status_id"] == status["id"]:
                         matching_cards.append(card)
                         status.update({'cards': matching_cards})
-    print(boards)
+
     return boards
 
 

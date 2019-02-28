@@ -7,19 +7,26 @@
         <title>ProMan</title>
 
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+        <link rel="icon" type="image/png" sizes="32x32"
+              href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96"
+              href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16"
+              href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css"
+              integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
+              integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT"
+              crossorigin="anonymous">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/design.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css" />
-<script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js' defer></script>
- <script src="{{ url_for('static', filename='js/dragndrophoz.js' ) }}" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css"/>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js' defer></script>
+        <script src="{{ url_for('static', filename='js/dragndrophoz.js' ) }}" defer></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -27,100 +34,78 @@
     <div>
         <h1>ProMan</h1>
 
-        <div id="boards">Boards are loading...</div>
-        <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Open Animated Modal</button>
-
-          <div id="id01" class="w3-modal">
-            <div class="w3-modal-content w3-animate-top w3-card-4">
-              <header class="w3-container w3-teal">
-                <h2>Name it :)</h2>
-              </header>
-              <div class="w3-container">
-                  <input type="text" id="text-input">
-              </div>
-              <footer class="w3-container w3-teal">
-                <button  onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright" id="submit-button" type="submit">submit</button>
-              </footer>
-            </div>
-          </div>
-
         <div id="buttons">
             {% if 'username' not in session %}
-            <button id="login">Log in</button>
-            <button id="register">Register</button>
+                <button id="login">Log in</button>
+                <button id="register">Register</button>
             {% else %}
-            <div class="login_info">
-            <button id="login" hidden>Log in</button>
-            <button id="register" hidden>Register</button>
-            {{ "Logged in as " + session.username }}
-            <a href="{{url_for('logout')}}">Log out</a>
-            </div>
+                <div class="login_info">
+                    <button id="login" hidden>Log in</button>
+                    <button id="register" hidden>Register</button>
+                    {{ "Logged in as " + session.username }}
+                    <a href="{{ url_for('logout') }}">Log out</a>
+                </div>
             {% endif %}
         </div>
         <div id="boards"></div>
-        <div class="dropzone"></div></div>
+        <div class="dropzone"></div>
+    </div>
+    <div id="boards"></div>
 
 
-
-      </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4">
+            <header class="w3-container w3-teal">
+                <h2>Name it :)</h2>
+            </header>
+            <div class="w3-container">
+                <input type="text" id="text-input-card" required>
+            </div>
+            <footer class="w3-container w3-teal">
+                <button class="w3-button w3-display-topright" id="submit-button-card" type="submit">submit</button>
+            </footer>
+        </div>
+    </div>
 
 
     <div id="registermodal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="regclose">&times;</span>
-        <h2>Register</h2>
-        <div id="register-form">
-            Username:<br>
-            <input type="text" id="regusername"><br>
-            Password:<br>
-            <input type="password" id="regpassword"><br>
-            <p><input id="registerbutton" type="submit" value="Register"></p>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="regclose">&times;</span>
+            <h2>Register</h2>
+            <div id="register-form">
+                Username:<br>
+                <input type="text" id="regusername"><br>
+                Password:<br>
+                <input type="password" id="regpassword"><br>
+                <p><input id="registerbutton" type="submit" value="Register"></p>
+            </div>
         </div>
-      </div>
     </div>
     <div id="loginmodal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="logclose">&times;</span>
-        <h2>Log in</h2>
-        <div id="login-form">
-            Username:<br>
-            <input type="text" id="loginusername"><br>
-            Password:<br>
-            <input type="password" id="loginpassword"><br>
-            <p><input id="loginbutton" type="submit" value="Log in"></p>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="logclose">&times;</span>
+            <h2>Log in</h2>
+            <div id="login-form">
+                Username:<br>
+                <input type="text" id="loginusername"><br>
+                Password:<br>
+                <input type="password" id="loginpassword"><br>
+                <p><input id="loginbutton" type="submit" value="Log in"></p>
 
 
+                <div id="addCard" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="logclose">&times;</span>
+                        <h2>Log in</h2>
+                        <div id="login-form">
+                            Title:<br>
+                            <input type="text" id="title"><br>
+                            <p><input id="loginbutton" type="submit" value="Log in"></p>
 
 
-             <div id="addCard" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="logclose">&times;</span>
-        <h2>Log in</h2>
-        <div id="login-form">
-            Title:<br>
-            <input type="text" id="title"><br>
-            <p><input id="loginbutton" type="submit" value="Log in"></p>
-
-
-
-
-
-
-
-  <script src="{{ url_for('static', filename='js/dragndrophoz.js' ) }}"></script>
-    </body>
+                            <script src="{{ url_for('static', filename='js/dragndrophoz.js' ) }}"></script>
+                            </body>
 </html>

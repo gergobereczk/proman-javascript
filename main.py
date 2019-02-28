@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, session, redirect
+from flask import Flask, render_template, url_for, session, redirect, request
 
 from util import json_response
 import persistence
@@ -32,15 +32,26 @@ def get_boards():
 
 @app.route("/insert-card", methods=["POST", "GET"])
 def insert_card():
+
     if request.method == "POST":
         req_data = request.get_json()
         card_dict = {
-            'board_id': 1,
+            'board_id': 3,
             'title': req_data["cardName"],
-            'status_id': 1,
+            'status_id': 9,
             'order': 1,
         }
+
         persistence.insert_card(card_dict)
+        return 'nothing'
+
+@app.route("/delete-card", methods=["POST", "GET"])
+def delete_card():
+    if request.method == "POST":
+        req_data = request.get_json()
+
+
+        persistence.delete_card(req_data['cardId'])
         return 'nothing'
 
 
@@ -81,10 +92,10 @@ def register(username, password):
 
 
 @app.route('/dd_fetch/<place>/<card>', methods=["GET", "POST"])
-def teszt11(place, card):
-    print("Place id =",place,"Card id =", card)
+def dd_fetch(place, card):
+
     persistence.update_card_position(card,place)
-    return "semmi"
+    return "dd update done"
 
 
 def main():
