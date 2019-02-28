@@ -126,6 +126,30 @@ def update_card_position(cursor, card_id_, new_status):
 
 
 @database_common.connection_handler
+def delete_card(cursor, card_id_):
+    cursor.execute("""
+           DELETE FROM cards
+           WHERE id = %(card_id_)s;
+                                       """, {"card_id_": card_id_})
+
+
+@database_common.connection_handler
+def insert_card(cursor, card_data):
+    cursor.execute("""
+               INSERT INTO cards ( board_id, title, status_id, "order")
+               VALUES (%(board_id)s,%(title)s,%(status_id)s,%(order)s);
+                                           """, card_data)
+
+
+@database_common.connection_handler
+def insert_board(cursor, board_data):
+    cursor.execute("""
+                   INSERT INTO boards ( title )
+                   VALUES (%(title)s);
+                                               """, board_data)
+
+
+@database_common.connection_handler
 def check_login_data(cursor, username):
     cursor.execute("""
                     SELECT username, password FROM users_table
@@ -155,4 +179,5 @@ def add_user(cursor, username, password):
     user = cursor.fetchone()
 
     return user
+
 
