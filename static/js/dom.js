@@ -24,6 +24,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function (boards) {
             dom.showBoards(boards);
+            dom.addNewElement();
         });
     },
     showBoards: function (boards) {
@@ -39,11 +40,12 @@ export let dom = {
             boardList +=
                 `<div class="board-container">
                     <section class="board">
-                        <div class="board-header"><span class="board-title">Board 1</span>
+                        <div class="board-header"><span class="board-title">${board['title']}</span>
                         <button class="board-add">Add Card</button>
+                         <button class="board-add">Add Board</button>
                         <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
                         </div>`;
-            
+
              let statusesFromServer = board.statuses;
 
              for (var i in statusesFromServer){
@@ -63,13 +65,13 @@ export let dom = {
                             <div class="card-title">${cardsFromServer[i]['title']}</div>
                    </div>
                 `}
-                    
-                    
+
+
                     boardList+=`</div></div></div>
                         `}
-                    
-                       
-                     
+
+
+
 
                boardList+=`           
             </div>
@@ -86,6 +88,7 @@ export let dom = {
        dragula([document.getElementById('boards')]);
         this._appendToElement(document.querySelector('#boards'), outerHtml);
     },
+
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
     },
@@ -99,5 +102,51 @@ export let dom = {
     },
     loadTestBoards: function () {
         document.querySelector('#boards').innerHTML = this.createTestBoards();
+    },
+    addNewElement: function () {
+        let addButton = document.getElementsByClassName("board-add");
+        addButton[0].addEventListener("click", addCard);
+        addButton[1].addEventListener("click", addBoard);
+
+        /*function loadModal() {
+          let submitButton= document.getElementById("submit-button");
+            submitButton.addEventListener("click", getText);
+
+            function getText () {
+                let input = document.getElementById("text-input");
+                let inputText = input.innerHTML;
+                 addCard(inputText)
+            }
+        }*/
+
+        function addCard() {
+            let url = '/insert-card';
+            let data = {cardName: "Old is the new New"};
+
+            fetch(url, {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(data), // data can be `string` or {object}!
+              headers:{
+                'Content-Type': 'application/json'
+              }
+                }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+        }
+        function addBoard() {
+             let url = '/insert-board';
+             let data = {boardName: 'New Board'};
+
+             fetch(url, {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(data), // data can be `string` or {object}!
+              headers:{
+                'Content-Type': 'application/json'
+              }
+                }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+
+        }
     }
 };

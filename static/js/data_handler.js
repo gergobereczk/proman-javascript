@@ -55,3 +55,7 @@ export let dataHandler = {
     }
     // here comes more features
 };
+
+ function loadData(){
+
+}
