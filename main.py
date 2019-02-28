@@ -38,16 +38,20 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/login/<username>/<password>")
 def login(username, password):
-    print('username=', username, 'password=', password)
     get_user = persistence.check_login_data(username)
     actual_password = get_user[0]['password']
     verify_pass = data_handler.verify_password(password, actual_password)
-    print(verify_pass)
     if verify_pass is True:
         session['username'] = username
-        return render_template('index.html')
+        return redirect(url_for('index'))
     else:
         return render_template('index.html')
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 @app.route("/register/<username>/<password>")

@@ -17,8 +17,15 @@
     <body>
         <h1>ProMan</h1>
         <div id="buttons">
+            {% if 'username' not in session %}
             <button id="login">Log in</button>
             <button id="register">Register</button>
+            {% else %}
+            <div class="login_info">
+            {{ "Logged in as " + session.username }}
+            <a href="{{url_for('logout')}}">Log out</a>
+            </div>
+            {% endif %}
         </div>
         <div id="boards">Boards are loading...</div>
     <div id="registermodal" class="modal">
