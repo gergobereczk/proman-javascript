@@ -30,13 +30,30 @@
             <button id="register">Register</button>
             {% else %}
             <div class="login_info">
+            <button id="login" hidden>Log in</button>
+            <button id="register" hidden>Register</button>
             {{ "Logged in as " + session.username }}
             <a href="{{url_for('logout')}}">Log out</a>
             </div>
             {% endif %}
         </div>
-        <div id="boards">Boards are loading...</div>
+        <div id="boards"></div>
         <div class="dropzone"></div></div>
+
+
+      </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
 
     <div id="registermodal" class="modal">
       <!-- Modal content -->
@@ -63,8 +80,7 @@
             Password:<br>
             <input type="password" id="loginpassword"><br>
             <p><input id="loginbutton" type="submit" value="Log in"></p>
-        </div>
-      </div>
+
 
 
 

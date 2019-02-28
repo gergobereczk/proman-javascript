@@ -41,7 +41,7 @@ export let dom = {
                     <section class="board">
                         <div class="board-header"><span class="board-title">Board 1</span>
                         <button class="board-add">Add Card</button>
-                        <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+                      
                         </div>`;
             
              let statusesFromServer = board.statuses;
@@ -53,13 +53,13 @@ export let dom = {
                      <div class="board-column">
                     <div class="board-column-title">${statusesFromServer[i]['title']}</div>
                     <div class="board-column-content">
-<div class="dropzone">`;
+<div class="dropzone" data-status="${statusesFromServer[i]['id']}">`;
 
                  let cardsFromServer = board.statuses[i]['cards'];
 
                     for (var i in cardsFromServer){
                     boardList+=`
-                        <div class="card" id="cards" draggable="true")>
+                        <div class="card" data-card_id="${cardsFromServer[i]['id']}" id="cards" draggable="true")>
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title">${cardsFromServer[i]['title']}</div>
                    </div>
@@ -149,7 +149,9 @@ export let dom = {
     let usernameText = document.getElementById('loginusername');
     let passwordText = document.getElementById('loginpassword');
     loginSubmit.addEventListener('click', function () {
-        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`)
+        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`);
+      setTimeout(function(){ location.reload(); }, 500);
+
     });
 
     let registerUserText = document.getElementById('regusername');

@@ -16,7 +16,6 @@ var dragged;
   document.addEventListener("dragend", function( event ) {
       // reset the transparency
       event.target.style.opacity = "";
-      console.log("1416")
   }, false);
 
   /* events fired on the drop targets */
@@ -51,7 +50,9 @@ var dragged;
           event.target.style.background = "";
           dragged.parentNode.removeChild( dragged );
           event.target.appendChild( dragged );
-
+            let card = event.target.appendChild(dragged).dataset['card_id'];
+          let place = event.target.dataset['status'];;
+          fetch(`http://127.0.0.1:5000/dd_fetch/${place}/${card}`)
 
 
 

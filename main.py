@@ -63,6 +63,13 @@ def register(username, password):
     return render_template('index.html')
 
 
+@app.route('/dd_fetch/<place>/<card>', methods=["GET", "POST"])
+def teszt11(place, card):
+    print("Place id =",place,"Card id =", card)
+    persistence.update_card_position(card,place)
+    return "semmi"
+
+
 def main():
     app.run(debug=True)
 
