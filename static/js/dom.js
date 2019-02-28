@@ -94,10 +94,66 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+
     createTestBoards: function () {
         return
     },
     loadTestBoards: function () {
         document.querySelector('#boards').innerHTML = this.createTestBoards();
     }
+
 };
+
+
+    let registerModal = document.getElementById('registermodal');
+    let loginModal = document.getElementById('loginmodal');
+    let registerButton = document.getElementById("register");
+    let loginButton = document.getElementById("login");
+    let logSpan = document.getElementsByClassName("logclose")[0];
+    let regSpan = document.getElementsByClassName("regclose")[0];
+    let loginSubmit = document.getElementById("loginbutton");
+    let registerSubmit = document.getElementById("registerbutton");
+
+    registerButton.onclick = function() {
+        registerModal.style.display = "block";
+    };
+
+    loginButton.onclick = function() {
+        loginModal.style.display = "block";
+    };
+
+    regSpan.onclick = function() {
+        registerModal.style.display = "none";
+    };
+
+    logSpan.onclick = function() {
+        loginModal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == registerModal || event.target == loginModal) {
+          registerModal.style.display = "none";
+          loginModal.style.display = "none";
+      }
+    };
+
+    loginSubmit.onclick = function() {
+        loginModal.style.display = "none";
+    };
+
+    registerSubmit.onclick = function() {
+        registerModal.style.display = "none";
+    };
+
+
+    let usernameText = document.getElementById('loginusername');
+    let passwordText = document.getElementById('loginpassword');
+    loginSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`)
+    });
+
+    let registerUserText = document.getElementById('regusername');
+    let registerPasswordText = document.getElementById('regpassword');
+    registerSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/register/${registerUserText.value}/${registerPasswordText.value}`)
+    });
