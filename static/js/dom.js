@@ -30,7 +30,7 @@ export let dom = {
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
-        let idsForDragula = []
+
         let boardList = '';
 
 
@@ -42,25 +42,29 @@ export let dom = {
                     <section class="board">
                         <div class="board-header"><span class="board-title">${board['title']}</span>
                         <button class="board-add">Add Card</button>
+
                          <button class="board-add">Add Board</button>
                         <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+
+
                         </div>`;
 
              let statusesFromServer = board.statuses;
 
              for (var i in statusesFromServer){
-                 idsForDragula.push(statusesFromServer[i]['title']);
+
                 boardList+=`
-                    <div class="dropzone" id="${statusesFromServer[i]['title']}">
-                     <div class="board-column" id="board" class="dropzone">
+                    
+                     <div class="board-column">
                     <div class="board-column-title">${statusesFromServer[i]['title']}</div>
-                    <div class="board-column-content">`;
+                    <div class="board-column-content">
+<div class="dropzone" data-status="${statusesFromServer[i]['id']}">`;
 
                  let cardsFromServer = board.statuses[i]['cards'];
 
                     for (var i in cardsFromServer){
                     boardList+=`
-                        <div class="card">
+                        <div class="card" data-card_id="${cardsFromServer[i]['id']}" id="cards" draggable="true")>
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title">${cardsFromServer[i]['title']}</div>
                    </div>
@@ -84,8 +88,7 @@ export let dom = {
                 ${boardList}
             </ul>
         `;
-       for (var i in idsForDragula){ console.log(idsForDragula[i])};
-       dragula([document.getElementById('boards')]);
+
         this._appendToElement(document.querySelector('#boards'), outerHtml);
     },
 
@@ -97,6 +100,7 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+
     createTestBoards: function () {
         return
     },
@@ -149,4 +153,61 @@ export let dom = {
 
         }
     }
+
 };
+
+
+    let registerModal = document.getElementById('registermodal');
+    let loginModal = document.getElementById('loginmodal');
+    let registerButton = document.getElementById("register");
+    let loginButton = document.getElementById("login");
+    let logSpan = document.getElementsByClassName("logclose")[0];
+    let regSpan = document.getElementsByClassName("regclose")[0];
+    let loginSubmit = document.getElementById("loginbutton");
+    let registerSubmit = document.getElementById("registerbutton");
+
+    registerButton.onclick = function() {
+        registerModal.style.display = "block";
+    };
+
+    loginButton.onclick = function() {
+        loginModal.style.display = "block";
+    };
+
+    regSpan.onclick = function() {
+        registerModal.style.display = "none";
+    };
+
+    logSpan.onclick = function() {
+        loginModal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == registerModal || event.target == loginModal) {
+          registerModal.style.display = "none";
+          loginModal.style.display = "none";
+      }
+    };
+
+    loginSubmit.onclick = function() {
+        loginModal.style.display = "none";
+    };
+
+    registerSubmit.onclick = function() {
+        registerModal.style.display = "none";
+    };
+
+
+    let usernameText = document.getElementById('loginusername');
+    let passwordText = document.getElementById('loginpassword');
+    loginSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`);
+      setTimeout(function(){ location.reload(); }, 500);
+
+    });
+
+    let registerUserText = document.getElementById('regusername');
+    let registerPasswordText = document.getElementById('regpassword');
+    registerSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/register/${registerUserText.value}/${registerPasswordText.value}`)
+    });

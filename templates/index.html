@@ -24,8 +24,9 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     </head>
-    <body>
+    <div>
         <h1>ProMan</h1>
+
         <div id="boards">Boards are loading...</div>
         <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Open Animated Modal</button>
 
@@ -43,6 +44,67 @@
             </div>
           </div>
 
+        <div id="buttons">
+            {% if 'username' not in session %}
+            <button id="login">Log in</button>
+            <button id="register">Register</button>
+            {% else %}
+            <div class="login_info">
+            <button id="login" hidden>Log in</button>
+            <button id="register" hidden>Register</button>
+            {{ "Logged in as " + session.username }}
+            <a href="{{url_for('logout')}}">Log out</a>
+            </div>
+            {% endif %}
+        </div>
+        <div id="boards"></div>
+        <div class="dropzone"></div></div>
 
+
+
+      </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="registermodal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="regclose">&times;</span>
+        <h2>Register</h2>
+        <div id="register-form">
+            Username:<br>
+            <input type="text" id="regusername"><br>
+            Password:<br>
+            <input type="password" id="regpassword"><br>
+            <p><input id="registerbutton" type="submit" value="Register"></p>
+        </div>
+      </div>
+    </div>
+    <div id="loginmodal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="logclose">&times;</span>
+        <h2>Log in</h2>
+        <div id="login-form">
+            Username:<br>
+            <input type="text" id="loginusername"><br>
+            Password:<br>
+            <input type="password" id="loginpassword"><br>
+            <p><input id="loginbutton" type="submit" value="Log in"></p>
+
+
+
+
+  <script src="{{ url_for('static', filename='js/dragndrophoz.js' ) }}"></script>
     </body>
 </html>

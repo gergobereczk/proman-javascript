@@ -2,6 +2,8 @@ import database_common
 
 '''
 import csv
+import database_common
+
 
 STATUSES_FILE = './data/statuses.csv'
 BOARDS_FILE = './data/boards.csv'
@@ -122,6 +124,7 @@ def update_card_position(cursor, card_id_, new_status):
                                     """, {'new_status': new_status, "card_id_": card_id_})
 
 
+
 @database_common.connection_handler
 def delete_card(cursor, card_id_):
     cursor.execute("""
@@ -144,4 +147,37 @@ def insert_board(cursor, board_data):
                    INSERT INTO boards ( title )
                    VALUES (%(title)s);
                                                """, board_data)
+
+
+@database_common.connection_handler
+def check_login_data(cursor, username):
+    cursor.execute("""
+                    SELECT username, password FROM users_table
+                    WHERE username=%(username)s;
+    """, {'username': username})
+
+    login_info = cursor.fetchall()
+
+    return login_info
+
+
+@database_common.connection_handler
+def add_user(cursor, username, password):
+    cursor.execute("""
+                    INSERT INTO users_table (username, password) 
+                    VALUES (%(username)s, %(password)s); 
+                    """,
+                   {'username': username, 'password': password})
+
+    cursor.execute("""
+                    SELECT username, password
+                    FROM users_table
+                    WHERE username=%(username)s;
+                    """,
+                   {'username': username})
+
+    user = cursor.fetchone()
+
+    return user
+
 
