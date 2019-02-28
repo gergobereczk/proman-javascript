@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 export let dom = {
     _appendToElement: function (elementToExtend, textToAppend, prepend = false) {
@@ -22,28 +22,68 @@ export let dom = {
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
-        dataHandler.getBoards(function(boards){
+        dataHandler.getBoards(function (boards) {
             dom.showBoards(boards);
         });
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
-
+        let idsForDragula = []
         let boardList = '';
 
-        for(let board of boards){
-            boardList += `
-                <li>${board.title}</li>
-            `;
+
+        for (let board of boards) {
+
+
+            boardList +=
+                `<div class="board-container">
+                    <section class="board">
+                        <div class="board-header"><span class="board-title">Board 1</span>
+                        <button class="board-add">Add Card</button>
+                        <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+                        </div>`;
+            
+             let statusesFromServer = board.statuses;
+
+             for (var i in statusesFromServer){
+                 idsForDragula.push(statusesFromServer[i]['title']);
+                boardList+=`
+                    <div class="dropzone" id="${statusesFromServer[i]['title']}">
+                     <div class="board-column" id="board" class="dropzone">
+                    <div class="board-column-title">${statusesFromServer[i]['title']}</div>
+                    <div class="board-column-content">`;
+
+                 let cardsFromServer = board.statuses[i]['cards'];
+
+                    for (var i in cardsFromServer){
+                    boardList+=`
+                        <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">${cardsFromServer[i]['title']}</div>
+                   </div>
+                `}
+                    
+                    
+                    boardList+=`</div></div></div>
+                        `}
+                    
+                       
+                     
+
+               boardList+=`           
+            </div>
+        </section>`;
         }
+
 
         const outerHtml = `
             <ul class="board-container">
                 ${boardList}
             </ul>
         `;
-
+       for (var i in idsForDragula){ console.log(idsForDragula[i])};
+       dragula([document.getElementById('boards')]);
         this._appendToElement(document.querySelector('#boards'), outerHtml);
     },
     loadCards: function (boardId) {
@@ -55,91 +95,7 @@ export let dom = {
     },
     // here comes more features
     createTestBoards: function () {
-        return `<div class="board-container">
-        <section class="board">
-            <div class="board-header"><span class="board-title">Board 1</span>
-                <button class="board-add">Add Card</button>
-                <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
-            </div>
-            <div class="board-columns">
-                <div class="board-column">
-                    <div class="board-column-title">New</div>
-                    <div class="board-column-content">
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 1</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 2</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="board-column-title">In Progress</div>
-                    <div class="board-column-content">
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 1</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="board-column-title">Testing</div>
-                    <div class="board-column-content">
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 1</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 2</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 3</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 4</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 5</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="board-column-title">Done</div>
-                    <div class="board-column-content">
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 1</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 2</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 3</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 4</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 5</div>
-                        </div>
-                        <div class="card">
-                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                            <div class="card-title">Card 6</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>`;
+        return
     },
     loadTestBoards: function () {
         document.querySelector('#boards').innerHTML = this.createTestBoards();

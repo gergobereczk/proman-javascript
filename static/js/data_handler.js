@@ -30,7 +30,6 @@ export let dataHandler = {
         this._api_get('/get-boards', (response) => {
             this._data = response;
             callback(response);
-            console.log(response);
         });
     },
     getBoard: function (boardId, callback) {
