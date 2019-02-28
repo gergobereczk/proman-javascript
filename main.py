@@ -1,9 +1,12 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, session, redirect
 from util import json_response
 
 import data_handler
+import persistence
 
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 @app.route("/")
@@ -32,11 +35,26 @@ def get_cards_for_board(board_id: int):
     """
     return data_handler.get_cards_for_board(board_id)
 
+
 @app.route("/login/<username>/<password>")
 def login(username, password):
     print('username=', username, 'password=', password)
-    return "nothing"
+    get_user = persistence.check_login_data(username)
+    actual_password = get_user[0]['password']
+    verify_pass = data_handler.verify_password(password, actual_password)
+    print(verify_pass)
+    if verify_pass is True:
+        session['username'] = username
+        return render_template('index.html')
+    else:
+        return render_template('index.html')
 
+
+@app.route("/register/<username>/<password>")
+def register(username, password):
+    hashed_password = data_handler.hash_password(password)
+    persistence.add_user(username, hashed_password)
+    return render_template('index.html')
 
 
 def main():

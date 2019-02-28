@@ -103,6 +103,11 @@ export let dom = {
     let usernameText = document.getElementById('loginusername');
     let passwordText = document.getElementById('loginpassword');
     loginSubmit.addEventListener('click', function () {
-        fetch(`http://127.0.0.1:5000/login/${usernameText.innerText}/${passwordText.innerText}`)
-        console.log(usernameText.innerText)
+        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`)
+    });
+
+    let registerUserText = document.getElementById('regusername');
+    let registerPasswordText = document.getElementById('regpassword');
+    registerSubmit.addEventListener('click', function () {
+        fetch(`http://127.0.0.1:5000/register/${registerUserText.value}/${registerPasswordText.value}`)
     });

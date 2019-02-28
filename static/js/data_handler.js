@@ -59,11 +59,3 @@ export let dataHandler = {
     // here comes more features
 };
 
-function getLoginData () {
-        let loginButton = document.getElementById('loginbutton');
-        let usernameText = document.getElementById('loginusername');
-        let passwordText = document.getElementById('loginpassword');
-        loginButton.addEventListener('click', function () {
-            fetch(`http://127.0.0.1:5000/login/${usernameText.innerText}/${passwordText.innerText}`)
-        })
-    }
