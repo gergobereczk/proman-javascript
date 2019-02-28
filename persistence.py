@@ -2,6 +2,8 @@ import database_common
 
 '''
 import csv
+import database_common
+
 
 STATUSES_FILE = './data/statuses.csv'
 BOARDS_FILE = './data/boards.csv'
@@ -35,7 +37,6 @@ def _get_data(data_type, file, force):
         _cache[data_type] = _read_csv(file)
     return _cache[data_type]
     '''
-
 
 '''def clear_cache():
     for k in list(_cache.keys()):
@@ -110,6 +111,7 @@ def get_all_boards_width_all_elements(cursor):
     info = cursor.fetchall()
     return info
 
+
 # Updates the position for a card in the database
 
 
@@ -121,3 +123,59 @@ def update_card_position(cursor, card_id_, new_status):
         WHERE id = %(card_id_)s
                                     """, {'new_status': new_status, "card_id_": card_id_})
 
+
+@database_common.connection_handler
+def delete_card(cursor, card_id_):
+    cursor.execute("""
+           DELETE FROM cards
+           WHERE id = %(card_id_)s;
+                                       """, {"card_id_": card_id_})
+
+
+@database_common.connection_handler
+def insert_card(cursor, card_data):
+    print(card_data, "itt")
+    cursor.execute("""
+               INSERT INTO cards ( board_id, title, status_id, "order")
+               VALUES (%(board_id)s,%(title)s,%(status_id)s,%(order)s);
+                                           """, card_data)
+
+
+@database_common.connection_handler
+def insert_board(cursor, board_data):
+    cursor.execute("""
+                   INSERT INTO boards ( title )
+                   VALUES (%(title)s);
+                                               """, board_data)
+
+
+@database_common.connection_handler
+def check_login_data(cursor, username):
+    cursor.execute("""
+                    SELECT username, password FROM users_table
+                    WHERE username=%(username)s;
+    """, {'username': username})
+
+    login_info = cursor.fetchall()
+
+    return login_info
+
+
+@database_common.connection_handler
+def add_user(cursor, username, password):
+    cursor.execute("""
+                    INSERT INTO users_table (username, password) 
+                    VALUES (%(username)s, %(password)s); 
+                    """,
+                   {'username': username, 'password': password})
+
+    cursor.execute("""
+                    SELECT username, password
+                    FROM users_table
+                    WHERE username=%(username)s;
+                    """,
+                   {'username': username})
+
+    user = cursor.fetchone()
+
+    return user

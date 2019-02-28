@@ -30,9 +30,11 @@ export let dataHandler = {
         this._api_get('/get-boards', (response) => {
             this._data = response;
             callback(response);
-            console.log(response);
         });
     },
+
+
+
     getBoard: function (boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
     },
@@ -56,3 +58,9 @@ export let dataHandler = {
     }
     // here comes more features
 };
+
+
+ function loadData(){
+
+}
+
