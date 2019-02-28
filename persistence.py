@@ -156,3 +156,19 @@ def add_user(cursor, username, password):
 
     return user
 
+
+@database_common.connection_handler
+def insert_card(cursor, card_data):
+    cursor.execute("""
+               INSERT INTO cards ( board_id, title, status_id, "order")
+               VALUES (%(board_id)s,%(title)s,%(status_id)s,%(order)s);
+                                           """, card_data)
+
+
+@database_common.connection_handler
+def insert_board(cursor, board_data):
+    cursor.execute("""
+                   INSERT INTO boards ( title )
+                   VALUES (%(title)s);
+                                               """, board_data)
+

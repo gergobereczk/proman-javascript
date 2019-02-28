@@ -1,5 +1,6 @@
-from flask import Flask, render_template, url_for, session, redirect
+from flask import Flask, render_template, url_for, request,session, redirect
 from util import json_response
+
 
 import json
 
@@ -68,6 +69,37 @@ def teszt11(place, card):
     print("Place id =",place,"Card id =", card)
     persistence.update_card_position(card,place)
     return "semmi"
+
+
+@app.route("/insert-card", methods=["POST", "GET"])
+def insert_card():
+    if request.method == "POST":
+        req_data = request.get_json()
+        card_dict = {
+            'board_id': 1,
+            'title': req_data["cardName"],
+            'status_id': 1,
+            'order': 1,
+        }
+        persistence.insert_card(card_dict)
+        return 'nothing'
+
+
+@app.route("/insert-board", methods=["POST", "GET"])
+def insert_board():
+    if request.method == "POST":
+        req_data = request.get_json()
+        board_dict = {
+            'title': req_data["boardName"],
+        }
+        persistence.insert_board(board_dict)
+        return 'U fool'
+
+
+
+
+
+
 
 
 def main():

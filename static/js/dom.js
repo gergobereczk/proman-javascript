@@ -24,6 +24,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function (boards) {
             dom.showBoards(boards);
+            dom.createNewElement();
         });
     },
     showBoards: function (boards) {
@@ -43,36 +44,36 @@ export let dom = {
                         <button class="board-add">Add Card</button>
                       
                         </div>`;
-            
-             let statusesFromServer = board.statuses;
 
-             for (var i in statusesFromServer){
+            let statusesFromServer = board.statuses;
 
-                boardList+=`
+            for (var i in statusesFromServer) {
+
+                boardList += `
                     
                      <div class="board-column">
                     <div class="board-column-title">${statusesFromServer[i]['title']}</div>
                     <div class="board-column-content">
 <div class="dropzone" data-status="${statusesFromServer[i]['id']}">`;
 
-                 let cardsFromServer = board.statuses[i]['cards'];
+                let cardsFromServer = board.statuses[i]['cards'];
 
-                    for (var i in cardsFromServer){
-                    boardList+=`
+                for (var i in cardsFromServer) {
+                    boardList += `
                         <div class="card" data-card_id="${cardsFromServer[i]['id']}" id="cards" draggable="true")>
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title">${cardsFromServer[i]['title']}</div>
                    </div>
-                `}
-                    
-                    
-                    boardList+=`</div></div></div>
-                        `}
-                    
-                       
-                     
+                `
+                }
 
-               boardList+=`           
+
+                boardList += `</div></div></div>
+                        `
+            }
+
+
+            boardList += `           
             </div>
         </section>`;
         }
@@ -100,62 +101,110 @@ export let dom = {
     },
     loadTestBoards: function () {
         document.querySelector('#boards').innerHTML = this.createTestBoards();
-    }
+    },
+    createNewElement: function () {
+        let addButton = document.getElementsByClassName("board-add");
+        addButton[0].addEventListener("click", addCard);
 
+
+        function addCard() {document.getElementById('id01').style.display='block';
+
+
+
+
+            /*
+            let url = '/insert-card';
+            let data = {cardName: 'yolo'};
+
+            fetch(url, {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(data), // data can be string or {object}!
+              headers:{
+                'Content-Type': 'application/json'
+              }
+                }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));*/
+        }
+
+    }
 };
 
 
-    let registerModal = document.getElementById('registermodal');
-    let loginModal = document.getElementById('loginmodal');
-    let registerButton = document.getElementById("register");
-    let loginButton = document.getElementById("login");
-    let logSpan = document.getElementsByClassName("logclose")[0];
-    let regSpan = document.getElementsByClassName("regclose")[0];
-    let loginSubmit = document.getElementById("loginbutton");
-    let registerSubmit = document.getElementById("registerbutton");
+let registerModal = document.getElementById('registermodal');
+let loginModal = document.getElementById('loginmodal');
+let registerButton = document.getElementById("register");
+let loginButton = document.getElementById("login");
+let logSpan = document.getElementsByClassName("logclose")[0];
+let regSpan = document.getElementsByClassName("regclose")[0];
+let loginSubmit = document.getElementById("loginbutton");
+let registerSubmit = document.getElementById("registerbutton");
 
-    registerButton.onclick = function() {
-        registerModal.style.display = "block";
-    };
 
-    loginButton.onclick = function() {
-        loginModal.style.display = "block";
-    };
+registerButton.onclick = function () {
+    registerModal.style.display = "block";
+};
 
-    regSpan.onclick = function() {
+loginButton.onclick = function () {
+    loginModal.style.display = "block";
+};
+
+regSpan.onclick = function () {
+    registerModal.style.display = "none";
+};
+
+logSpan.onclick = function () {
+    loginModal.style.display = "none";
+};
+
+window.onclick = function (event) {
+    if (event.target == registerModal || event.target == loginModal) {
         registerModal.style.display = "none";
-    };
-
-    logSpan.onclick = function() {
         loginModal.style.display = "none";
-    };
+    }
+};
 
-    window.onclick = function(event) {
-      if (event.target == registerModal || event.target == loginModal) {
-          registerModal.style.display = "none";
-          loginModal.style.display = "none";
-      }
-    };
+loginSubmit.onclick = function () {
+    loginModal.style.display = "none";
+};
 
-    loginSubmit.onclick = function() {
-        loginModal.style.display = "none";
-    };
-
-    registerSubmit.onclick = function() {
-        registerModal.style.display = "none";
-    };
+registerSubmit.onclick = function () {
+    registerModal.style.display = "none";
+};
 
 
-    let usernameText = document.getElementById('loginusername');
-    let passwordText = document.getElementById('loginpassword');
-    loginSubmit.addEventListener('click', function () {
-        fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`);
-      setTimeout(function(){ location.reload(); }, 500);
+let usernameText = document.getElementById('loginusername');
+let passwordText = document.getElementById('loginpassword');
+loginSubmit.addEventListener('click', function () {
+    fetch(`http://127.0.0.1:5000/login/${usernameText.value}/${passwordText.value}`);
+    setTimeout(function () {
+        location.reload();
+    }, 500);
 
-    });
+});
 
-    let registerUserText = document.getElementById('regusername');
-    let registerPasswordText = document.getElementById('regpassword');
-    registerSubmit.addEventListener('click', function () {
-        fetch(`http://127.0.0.1:5000/register/${registerUserText.value}/${registerPasswordText.value}`)
-    });
+let registerUserText = document.getElementById('regusername');
+let registerPasswordText = document.getElementById('regpassword');
+registerSubmit.addEventListener('click', function () {
+    fetch(`http://127.0.0.1:5000/register/${registerUserText.value}/${registerPasswordText.value}`)
+});
+
+
+
+function addNewElement() {
+
+}
+function addCard(name) {
+            let url = '/insert-card';
+            let data = {cardName: name};
+
+            fetch(url, {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(data), // data can be string or {object}!
+              headers:{
+                'Content-Type': 'application/json'
+              }
+                }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+        }
