@@ -33,7 +33,7 @@ export let dom = {
         // it adds necessary event listeners also
 
         let boardList = '';
-        boardList+=' <button class="board-add" id="add-new-card">Add Card</button>'
+        boardList += ' <button class="board-add" id="add-new-card">Add Card</button><button class="colum-add" id="add-new-colum">Add colum</button>'
 
 
         for (let board of boards) {
@@ -110,15 +110,20 @@ export let dom = {
         document.querySelector('#boards').innerHTML = this.createTestBoards();
     },
 
-    deleteCards: function(){
+    deleteCards: function () {
 
         const currentCardToDel = document.querySelectorAll('.card-remove');
-    currentCardToDel.forEach(card => card.addEventListener("click", deleteCard));
-    function deleteCard(cardToDel) {let cardNumber = cardToDel.target; addDeleteCardToServer(cardNumber.id); location.reload();
+        currentCardToDel.forEach(card => card.addEventListener("click", deleteCard));
 
-    }
+        function deleteCard(cardToDel) {
+            let cardNumber = cardToDel.target;
+            addDeleteCardToServer(cardNumber.id);
+            location.reload();
 
-    function addDeleteCardToServer(id) {let url = '/delete-card';
+        }
+
+        function addDeleteCardToServer(id) {
+            let url = '/delete-card';
             let data = {cardId: `${id}`};
 
 
@@ -132,15 +137,10 @@ export let dom = {
                 .then(response => console.log('Success:', JSON.stringify(response)))
                 .catch(error => console.error('Error:', error));
 
-    }
+        }
 
 
     },
-
-
-
-
-
 
 
     addNewElement: function () {
@@ -162,7 +162,8 @@ export let dom = {
             let cardName = document.getElementById('text-input-card').value;
 
             document.getElementById('id01').style.display = 'none';
-            addCardToServer(cardName);location.reload()
+            addCardToServer(cardName);
+            location.reload()
 
 
         }
@@ -171,7 +172,7 @@ export let dom = {
         function addCardToServer(cardName) {
             let url = '/insert-card';
             let data = {cardName: `${cardName}`};
-            console.log(data,"2143");
+            console.log(data, "2143");
 
 
             fetch(url, {
